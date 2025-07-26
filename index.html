@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Jasa Edit Canva by Yazid</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fade-in {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .fade-in { animation: fade-in 1s ease-out forwards; }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen font-sans p-4">
+
+  <div class="max-w-xl mx-auto">
+
+    <!-- Animasi Welcome -->
+    <div class="text-center mb-6">
+      <h1 class="text-4xl font-bold text-green-400 fade-in">Selamat Datang di Jasa Edit Canva</h1>
+      <p class="mt-2 text-gray-300 fade-in">Desain sesuai request kamu! Format PNG / JPG</p>
+    </div>
+
+    <!-- Form Request -->
+    <form id="requestForm" class="bg-gray-800 p-6 rounded-xl shadow-md space-y-4">
+      <div>
+        <label class="block mb-1">Nama</label>
+        <input type="text" id="nama" required class="w-full p-2 rounded bg-gray-700 text-white">
+      </div>
+      <div>
+        <label class="block mb-1">Email</label>
+        <input type="email" id="email" required class="w-full p-2 rounded bg-gray-700 text-white">
+      </div>
+      <div>
+        <label class="block mb-1">Request Desain (tulis sedetail mungkin)</label>
+        <textarea id="request" required class="w-full p-2 rounded bg-gray-700 text-white" rows="4"></textarea>
+      </div>
+      <div>
+        <label class="block mb-1">Upload Referensi (opsional)</label>
+        <input type="file" id="file" class="w-full text-white">
+      </div>
+      <button type="submit" class="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white font-bold w-full">Kirim Request</button>
+    </form>
+
+    <!-- Hasil & Nomor Pesanan -->
+    <div id="history" class="mt-8 space-y-4"></div>
+
+    <!-- Tombol WhatsApp Manual -->
+    <div class="mt-10 text-center">
+      <a href="https://wa.me/qr/STOOJ3DCJCE3A1" target="_blank" class="bg-blue-500 hover:bg-blue-600 px-6 py-2 rounded text-white font-semibold">Hubungi Manual via WhatsApp</a>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('requestForm');
+    const history = document.getElementById('history');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nama = document.getElementById('nama').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const request = document.getElementById('request').value.trim();
+      const nomor = "REQ" + Date.now().toString().slice(-6); // contoh: REQ456123
+
+      // Tambah ke histori di layar
+      const orderHTML = `
+        <div class="bg-gray-700 p-4 rounded-lg shadow fade-in">
+          <h2 class="text-lg font-bold text-green-300">✅ Pesanan Terkirim</h2>
+          <p><strong>Nomor:</strong> ${nomor}</p>
+          <p><strong>Nama:</strong> ${nama}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Request:</strong> ${request}</p>
+        </div>
+      `;
+      history.innerHTML = orderHTML + history.innerHTML;
+
+      // Buat pesan WhatsApp
+      const pesan = `Halo! Saya ingin melakukan request desain Canva.%0A%0A*Nomor Pesanan:* ${nomor}%0A*Nama:* ${nama}%0A*Email:* ${email}%0A*Deskripsi Request:* ${encodeURIComponent(request)}%0A`;
+
+      // Kirim ke WhatsApp
+      const linkWA = `https://wa.me/qr/STOOJ3DCJCE3A1?text=${pesan}`;
+      window.open(linkWA, '_blank');
+
+      // Reset form
+      form.reset();
+    });
+  </script>
+</body>
+                                               </html>
